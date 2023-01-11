@@ -1,5 +1,18 @@
 version: '2.2'
 services:
+  scylla-service:
+    image: scylladb/scylla:latest
+    ports:
+      - "9042:9042"
+    volumes:
+      # This configuration is customized to enable materialized views.
+      - ${PWD}/docker-files/cassandra.yaml:/etc/cassandra/cassandra.yaml
+    healthcheck:
+      test: ["CMD", "cqlsh", "-e", "describe keyspaces"]
+      interval: 5s
+      timeout: 5s
+      retries: 60
+
   cassandra-service:
     image: cassandra:latest
     ports:
@@ -39,6 +52,11 @@ services:
   # The healthcheck above is not enough because it does not provide a condition to wait for the service
   # to be up. And this is simpler than installing cqlsh and using it to check the service status on the
   # CI server. This uses alpine since it is a pretty small image.
+  scylla-latest:
+    image: alpine:latest
+    depends_on:
+      scylla-service:
+        condition: service_healthy
   cassandra-latest:
     image: alpine:latest
     depends_on:

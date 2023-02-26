@@ -13,6 +13,8 @@ object Dependencies {
   val CassandraDriverVersion = "4.14.1"
   val DriverVersionInDocs = "4.14"
 
+  val ScyllaDriverVersion = "4.14.1.0"
+
   val AlpakkaVersion = "5.0.0"
   val AlpakkaVersionInDocs = AlpakkaVersion.take(3)
   // for example
@@ -40,7 +42,8 @@ object Dependencies {
       "com.typesafe.akka" %% "akka-persistence" % AkkaVersion,
       "com.typesafe.akka" %% "akka-persistence-query" % AkkaVersion,
       "com.typesafe.akka" %% "akka-cluster-tools" % AkkaVersion,
-      "com.datastax.oss" % "java-driver-core" % CassandraDriverVersion,
+      //"com.datastax.oss" % "java-driver-core" % CassandraDriverVersion,
+      "com.scylladb" % "java-driver-core" % ScyllaDriverVersion,
       "org.scala-lang.modules" %% "scala-collection-compat" % "2.7.0",
       Logback % Test,
       "org.scalatest" %% "scalatest" % "3.2.14" % Test,
@@ -60,7 +63,7 @@ object Dependencies {
     "org.hdrhistogram" % "HdrHistogram" % "2.1.12")
 
   val dseTestDependencies = Seq(
-    "com.datastax.dse" % "dse-java-driver-core" % "2.3.0" % Test,
+    //"com.datastax.dse" % "dse-java-driver-core" % "2.3.0" % Test,
     "com.typesafe.akka" %% "akka-persistence-tck" % AkkaVersion % Test,
     "com.typesafe.akka" %% "akka-actor-testkit-typed" % AkkaVersion % Test,
     "com.typesafe.akka" %% "akka-stream-testkit" % AkkaVersion % Test,
